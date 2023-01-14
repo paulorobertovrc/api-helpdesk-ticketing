@@ -18,11 +18,15 @@ public class Ticket {
     private Long id;
     private String title;
     private String description;
+    @Enumerated(EnumType.STRING)
     private TicketCategory ticketCategory;
     private LocalDateTime createdAt = LocalDateTime.now();
+    @Enumerated(EnumType.STRING)
     private TicketStatus status = TicketStatus.OPEN;
+    @Enumerated(EnumType.STRING)
+    private TicketPriority priority = TicketPriority.NORMAL;
     @ManyToOne
     private User user;
-    @OneToMany
+    @OneToMany(mappedBy = "ticket")
     private List<Answer> answers = new ArrayList<>();
 }
