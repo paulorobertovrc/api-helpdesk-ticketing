@@ -4,6 +4,8 @@ import br.dev.pauloroberto.support_ticket.dto.NewTicketDto;
 import br.dev.pauloroberto.support_ticket.dto.TicketDto;
 import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
 import br.dev.pauloroberto.support_ticket.service.TicketService;
+import jakarta.validation.Valid;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +26,8 @@ public class TicketController {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<NewTicketDto> newTicket(@RequestBody NewTicketDto newTicketDto,
-                                                  UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<NewTicketDto> newTicket(@RequestBody @Valid NewTicketDto newTicketDto,
+                                                  @NotNull UriComponentsBuilder uriBuilder) {
         Ticket ticket = ticketService.fromDto(newTicketDto);
         ticketService.createTicket(ticket);
 
@@ -37,7 +39,7 @@ public class TicketController {
                 newTicketId,
                 newTicketDto.title(),
                 newTicketDto.description(),
-                newTicketDto.ticketCategory()
+                newTicketDto.category()
         ));
     }
 
@@ -50,6 +52,6 @@ public class TicketController {
     @GetMapping("/{id}")
     public ResponseEntity<TicketDto> getTicket(@PathVariable Long id) {
         TicketDto ticketDto = ticketService.getTicket(id);
-        return ResponseEntity.ok(new TicketDto(ticketDto));
+        return ResponseEntity.ok(ticketDto);
     }
 }
