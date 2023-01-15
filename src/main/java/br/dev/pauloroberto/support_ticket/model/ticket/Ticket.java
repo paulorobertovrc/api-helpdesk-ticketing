@@ -18,9 +18,9 @@ public class Ticket {
     private Long id;
     private String title;
     private String description;
-    @Enumerated(EnumType.STRING)
-    private TicketCategory ticketCategory;
     private LocalDateTime createdAt = LocalDateTime.now();
+    @Enumerated(EnumType.STRING)
+    private TicketCategory category;
     @Enumerated(EnumType.STRING)
     private TicketStatus status = TicketStatus.OPEN;
     @Enumerated(EnumType.STRING)
