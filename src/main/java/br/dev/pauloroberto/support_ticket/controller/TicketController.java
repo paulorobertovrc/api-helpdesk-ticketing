@@ -26,21 +26,14 @@ public class TicketController {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<NewTicketDto> newTicket(@RequestBody @Valid NewTicketDto newTicketDto,
-                                                  @NotNull UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<TicketDto> newTicket(@RequestBody @Valid NewTicketDto newTicketDto,
+                                               @NotNull UriComponentsBuilder uriBuilder) {
         Ticket ticket = ticketService.fromDto(newTicketDto);
         ticketService.createTicket(ticket);
 
-        Long newTicketId = ticket.getId();
-
         URI uri = uriBuilder.path("/tickets/{id}").buildAndExpand(ticket.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new NewTicketDto(
-                newTicketId,
-                newTicketDto.title(),
-                newTicketDto.description(),
-                newTicketDto.category()
-        ));
+        return ResponseEntity.created(uri).body(new TicketDto(ticket));
     }
 
     @GetMapping()
