@@ -30,7 +30,7 @@ public class TicketService {
     public Ticket fromDto(NewTicketDto newTicketDto) {
         Ticket ticket = new Ticket();
         BeanUtils.copyProperties(newTicketDto, ticket);
-        ticket.setTicketCategory(TicketCategory.fromDescription(newTicketDto.ticketCategory()));
+        ticket.setCategory(TicketCategory.fromDescription(newTicketDto.category()));
         return ticket;
     }
 
