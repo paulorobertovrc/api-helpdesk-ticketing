@@ -29,11 +29,12 @@ public class TicketController {
         Ticket ticket = ticketService.fromDto(newTicketDto);
         ticketService.createTicket(ticket);
 
+        Long newTicketId = ticket.getId();
+
         URI uri = uriBuilder.path("/tickets/{id}").buildAndExpand(ticket.getId()).toUri();
 
-        // NÃO ESTÁ RETORNANDO O ID DO TICKET -- VERIFICAR
         return ResponseEntity.created(uri).body(new NewTicketDto(
-                newTicketDto.id(),
+                newTicketId,
                 newTicketDto.title(),
                 newTicketDto.description(),
                 newTicketDto.ticketCategory()
