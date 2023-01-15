@@ -18,7 +18,8 @@ public enum TicketCategory {
 
     public static TicketCategory fromDescription(String description) {
         for (TicketCategory ticketCategory : TicketCategory.values()) {
-            if (ticketCategory.getDescription().equals(description)) {
+            if (ticketCategory.getDescription()
+                    .equalsIgnoreCase(description)) {
                 return ticketCategory;
             }
         }
