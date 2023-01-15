@@ -2,8 +2,12 @@ package br.dev.pauloroberto.support_ticket.dto;
 
 import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
 import br.dev.pauloroberto.support_ticket.model.ticket.TicketCategory;
+import br.dev.pauloroberto.support_ticket.model.ticket.TicketPriority;
+import br.dev.pauloroberto.support_ticket.model.ticket.TicketStatus;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,33 +15,27 @@ public record TicketDto(
     Long id,
     String title,
     String description,
-    TicketCategory ticketCategory,
-    String status,
+    LocalDateTime createdAt,
+    TicketCategory category,
+    TicketStatus status,
+    TicketPriority priority,
     UserDto user,
     List<AnswerDto> answers
 ) {
+
     public TicketDto(@NotNull Ticket ticket) {
         this(
             ticket.getId(),
             ticket.getTitle(),
             ticket.getDescription(),
-            ticket.getTicketCategory(),
-            ticket.getStatus().name(),
+            ticket.getCreatedAt(),
+            ticket.getCategory(),
+            ticket.getStatus(),
+            ticket.getPriority(),
             UserDto.from(ticket.getUser()),
-            AnswerDto.from(ticket.getAnswers())
+            new ArrayList<>()
         );
-    }
-
-    public TicketDto(@NotNull TicketDto ticketDto) {
-        this(
-                ticketDto.id(),
-                ticketDto.title(),
-                ticketDto.description(),
-                ticketDto.ticketCategory(),
-                ticketDto.status(),
-                ticketDto.user(),
-                ticketDto.answers()
-        );
+        this.answers.addAll(ticket.getAnswers().stream().map(AnswerDto::new).toList());
     }
 
     public static List<TicketDto> from(@NotNull List<Ticket> tickets) {
