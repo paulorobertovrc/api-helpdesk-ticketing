@@ -3,6 +3,7 @@ package br.dev.pauloroberto.support_ticket.service;
 import br.dev.pauloroberto.support_ticket.dto.NewTicketDto;
 import br.dev.pauloroberto.support_ticket.dto.TicketDto;
 import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
+import br.dev.pauloroberto.support_ticket.model.ticket.TicketCategory;
 import br.dev.pauloroberto.support_ticket.repository.TicketRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class TicketService {
     public Ticket fromDto(NewTicketDto newTicketDto) {
         Ticket ticket = new Ticket();
         BeanUtils.copyProperties(newTicketDto, ticket);
+        ticket.setTicketCategory(TicketCategory.fromDescription(newTicketDto.ticketCategory()));
         return ticket;
     }
 
