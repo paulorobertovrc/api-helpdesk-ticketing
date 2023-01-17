@@ -4,7 +4,8 @@ public enum TicketStatus {
     OPEN("Open"),
     IN_PROGRESS("In Progress"),
     SOLVED("Solved"),
-    CLOSED("Closed");
+    CLOSED("Closed"),
+    DELETED("Deleted");
 
     private final String description;
 
