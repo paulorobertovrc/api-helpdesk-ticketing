@@ -2,6 +2,7 @@ package br.dev.pauloroberto.support_ticket.service;
 
 import br.dev.pauloroberto.support_ticket.dto.NewTicketDto;
 import br.dev.pauloroberto.support_ticket.dto.TicketDto;
+import br.dev.pauloroberto.support_ticket.dto.UpdateTicketDto;
 import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
 import br.dev.pauloroberto.support_ticket.model.ticket.TicketCategory;
 import br.dev.pauloroberto.support_ticket.repository.TicketRepository;
@@ -27,10 +28,11 @@ public class TicketService {
         return (List<Ticket>) ticketRepository.findAll();
     }
 
-    public Ticket fromDto(NewTicketDto newTicketDto) {
+    public Ticket fromNewTicketDto(NewTicketDto newTicketDto) {
         Ticket ticket = new Ticket();
         BeanUtils.copyProperties(newTicketDto, ticket);
         ticket.setCategory(TicketCategory.fromDescription(newTicketDto.category()));
+
         return ticket;
     }
 
@@ -41,5 +43,48 @@ public class TicketService {
     public TicketDto getTicket(Long id) {
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
         return toDto(ticket);
+    }
+
+    public Ticket fromUpdateTicketDto(UpdateTicketDto updateTicketDto) {
+        Ticket ticket = new Ticket();
+        BeanUtils.copyProperties(updateTicketDto, ticket);
+
+        return ticket;
+    }
+
+    public Ticket getTicketById(Long id) {
+        return ticketRepository.findById(id).orElseThrow();
+    }
+
+    public TicketDto updateTicket(Long id, UpdateTicketDto updateTicketDto) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+
+        if (!updateTicketDto.title().isBlank()
+                && !updateTicketDto.title().equals(ticket.getTitle())
+        ) {
+            ticket.setTitle(updateTicketDto.title());
+        }
+
+        if (!updateTicketDto.description().isBlank()
+                && !updateTicketDto.description().equals(ticket.getDescription())
+        ) {
+            ticket.setDescription(updateTicketDto.description());
+        }
+
+        if (!updateTicketDto.category().isBlank()
+                && !updateTicketDto.category().equals(ticket.getCategory().getDescription())
+        ) {
+            ticket.setCategory(TicketCategory.fromDescription(updateTicketDto.category()));
+        }
+
+        ticketRepository.save(ticket);
+
+        return toDto(ticket);
+    }
+
+    public void deleteTicket(Long id, Long userId) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        ticket.deleteTicket(userId);
+        ticketRepository.save(ticket);
     }
 }
