@@ -32,12 +32,7 @@ public class AuthorizationController {
 
         try {
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
-
-            System.out.println("Authentication: " + authentication);
-
             String token = tokenService.generateToken((User) authentication.getPrincipal());
-
-            System.out.println("Token: " + token);
 
             return ResponseEntity.ok(new TokenDto(token));
         } catch (AuthenticationException e) {
