@@ -55,7 +55,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private @Nullable String getToken(HttpServletRequest request) {
+    private @Nullable String getToken(@NotNull HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if (token == null || !token.startsWith("Bearer ")) {
             return null;
