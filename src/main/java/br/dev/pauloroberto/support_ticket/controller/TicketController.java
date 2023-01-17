@@ -1,10 +1,10 @@
 package br.dev.pauloroberto.support_ticket.controller;
 
-import br.dev.pauloroberto.support_ticket.dto.NewTicketDto;
-import br.dev.pauloroberto.support_ticket.dto.TicketDto;
-import br.dev.pauloroberto.support_ticket.dto.UpdateTicketDto;
-import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
-import br.dev.pauloroberto.support_ticket.service.TicketService;
+import br.dev.pauloroberto.support_ticket.domain.dto.NewTicketDto;
+import br.dev.pauloroberto.support_ticket.domain.dto.TicketDto;
+import br.dev.pauloroberto.support_ticket.domain.dto.UpdateTicketDto;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.Ticket;
+import br.dev.pauloroberto.support_ticket.domain.service.TicketService;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @PostMapping()
+    @PostMapping
     @Transactional
     public ResponseEntity<TicketDto> newTicket(@RequestBody @Valid NewTicketDto newTicketDto,
                                                @NotNull UriComponentsBuilder uriBuilder) {
