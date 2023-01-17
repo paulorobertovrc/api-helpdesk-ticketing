@@ -1,7 +1,7 @@
-package br.dev.pauloroberto.support_ticket.repository;
+package br.dev.pauloroberto.support_ticket.domain.repository;
 
-import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
-import br.dev.pauloroberto.support_ticket.model.ticket.TicketStatus;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.Ticket;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.TicketStatus;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

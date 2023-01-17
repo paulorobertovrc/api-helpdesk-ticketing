@@ -1,6 +1,6 @@
-package br.dev.pauloroberto.support_ticket.dto;
+package br.dev.pauloroberto.support_ticket.domain.dto;
 
-import br.dev.pauloroberto.support_ticket.model.ticket.TicketCategory;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.TicketCategory;
 import br.dev.pauloroberto.support_ticket.utils.ValueOfEnum;
 import jakarta.validation.constraints.NotBlank;
 

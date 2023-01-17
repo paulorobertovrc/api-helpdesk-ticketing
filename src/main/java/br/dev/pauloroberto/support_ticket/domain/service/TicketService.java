@@ -1,11 +1,11 @@
-package br.dev.pauloroberto.support_ticket.service;
+package br.dev.pauloroberto.support_ticket.domain.service;
 
-import br.dev.pauloroberto.support_ticket.dto.NewTicketDto;
-import br.dev.pauloroberto.support_ticket.dto.TicketDto;
-import br.dev.pauloroberto.support_ticket.dto.UpdateTicketDto;
-import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
-import br.dev.pauloroberto.support_ticket.model.ticket.TicketCategory;
-import br.dev.pauloroberto.support_ticket.repository.TicketRepository;
+import br.dev.pauloroberto.support_ticket.domain.dto.NewTicketDto;
+import br.dev.pauloroberto.support_ticket.domain.dto.TicketDto;
+import br.dev.pauloroberto.support_ticket.domain.dto.UpdateTicketDto;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.Ticket;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.TicketCategory;
+import br.dev.pauloroberto.support_ticket.domain.repository.TicketRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class TicketService {
 
-    public final TicketRepository ticketRepository;
+    private final TicketRepository ticketRepository;
 
     public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;

@@ -1,4 +1,4 @@
-package br.dev.pauloroberto.support_ticket.model.user;
+package br.dev.pauloroberto.support_ticket.domain.model.user;
 
 public enum UserRoles {
     ADMIN("Admin"),

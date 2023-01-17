@@ -1,7 +1,7 @@
-package br.dev.pauloroberto.support_ticket.model;
+package br.dev.pauloroberto.support_ticket.domain.model;
 
-import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
-import br.dev.pauloroberto.support_ticket.model.user.User;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.Ticket;
+import br.dev.pauloroberto.support_ticket.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 

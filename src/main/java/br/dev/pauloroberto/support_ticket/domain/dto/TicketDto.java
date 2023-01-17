@@ -1,9 +1,9 @@
-package br.dev.pauloroberto.support_ticket.dto;
+package br.dev.pauloroberto.support_ticket.domain.dto;
 
-import br.dev.pauloroberto.support_ticket.model.ticket.Ticket;
-import br.dev.pauloroberto.support_ticket.model.ticket.TicketCategory;
-import br.dev.pauloroberto.support_ticket.model.ticket.TicketPriority;
-import br.dev.pauloroberto.support_ticket.model.ticket.TicketStatus;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.Ticket;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.TicketCategory;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.TicketPriority;
+import br.dev.pauloroberto.support_ticket.domain.model.ticket.TicketStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;

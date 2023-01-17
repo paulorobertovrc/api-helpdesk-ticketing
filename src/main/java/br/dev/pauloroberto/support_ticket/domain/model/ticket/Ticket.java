@@ -1,7 +1,7 @@
-package br.dev.pauloroberto.support_ticket.model.ticket;
+package br.dev.pauloroberto.support_ticket.domain.model.ticket;
 
-import br.dev.pauloroberto.support_ticket.model.Answer;
-import br.dev.pauloroberto.support_ticket.model.user.User;
+import br.dev.pauloroberto.support_ticket.domain.model.Answer;
+import br.dev.pauloroberto.support_ticket.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +34,7 @@ public class Ticket {
     private TicketPriority priority = TicketPriority.NORMAL;
     @ManyToOne
     private User user;
-    @OneToMany(mappedBy = "ticket")
+    @OneToMany(mappedBy = "ticket", fetch = FetchType.EAGER)
     private List<Answer> answers = new ArrayList<>();
 
     public void addAnswer(Answer answer) {
