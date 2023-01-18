@@ -1,5 +1,6 @@
 package br.dev.pauloroberto.support_ticket.security.service;
 
+import br.dev.pauloroberto.support_ticket.domain.model.user.Authorities;
 import br.dev.pauloroberto.support_ticket.domain.model.user.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class TokenService {
@@ -24,6 +26,8 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("Support Ticket API")
                     .withSubject(user.getUsername())
+                    .withClaim("id", user.getId())
+                    .withClaim("authorities", user.getAuthorities().toString())
                     .withExpiresAt(new Date(System.currentTimeMillis() + Long.parseLong(expiration)))
                     .sign(algorithm);
         } catch (Exception e) {
@@ -43,9 +47,25 @@ public class TokenService {
         }
     }
 
-    public String getSubject(String token) {
+    public String getSubject(String token) { // username
         try {
             return JWT.decode(token).getSubject();
+        } catch (JWTDecodeException e) {
+            throw new RuntimeException("Error decoding token");
+        }
+    }
+
+    public Long getUserId(String token) { // id
+        try {
+            return JWT.decode(token).getClaim("id").asLong();
+        } catch (JWTDecodeException e) {
+            throw new RuntimeException("Error decoding token");
+        }
+    }
+
+    public List<Authorities> getUserAuthorities(String token) {
+        try {
+            return JWT.decode(token).getClaim("authorities").asList(Authorities.class);
         } catch (JWTDecodeException e) {
             throw new RuntimeException("Error decoding token");
         }
