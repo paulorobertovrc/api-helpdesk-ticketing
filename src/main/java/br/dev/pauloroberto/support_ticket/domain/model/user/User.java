@@ -17,28 +17,40 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
     @Email
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
     private String password;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Ticket> tickets = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Answer> answers = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Authorities> authorities = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return this.roles;
     }
 
     @Override
     public String getUsername() {
         return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
     @Override

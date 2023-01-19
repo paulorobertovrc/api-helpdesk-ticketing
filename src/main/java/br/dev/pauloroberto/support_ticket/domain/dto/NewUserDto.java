@@ -5,12 +5,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record NewUserDto(
-    @NotBlank
+        @NotBlank
     String name,
-    @Email @NotBlank
+        @Email @NotBlank
     String email,
-    @NotBlank String password
-) {
+        @NotBlank String password
+        ) {
     public User toUser(NewUserDto newUserDto) {
         User user = new User();
         user.setName(newUserDto.name());

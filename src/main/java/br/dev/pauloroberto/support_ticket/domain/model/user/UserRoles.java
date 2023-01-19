@@ -1,9 +1,9 @@
 package br.dev.pauloroberto.support_ticket.domain.model.user;
 
 public enum UserRoles {
-    ADMIN("Admin"),
-    MODERATOR("Moderator"),
-    USER("User");
+    ROLE_ADMIN("Admin"),
+    ROLE_MODERATOR("Moderator"),
+    ROLE_USER("User");
 
     private final String description;
 

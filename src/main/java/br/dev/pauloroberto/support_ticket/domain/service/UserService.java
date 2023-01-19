@@ -9,14 +9,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final RoleService roleService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleService roleService) {
         this.userRepository = userRepository;
+        this.roleService = roleService;
     }
 
     public void newUser(@RequestBody @Valid @NotNull User user) {
@@ -28,6 +31,13 @@ public class UserService {
         user.setName(newUserDto.name());
         user.setEmail(newUserDto.email());
         user.setPassword(User.encodePassword(newUserDto.password()));
+        user.setRoles(
+                new ArrayList<>() {{
+                    add(roleService.findRoleByUserRoles("ROLE_USER"));
+                }}
+        );
+
+        System.out.println("User: " + user);
 
         return user;
     }
