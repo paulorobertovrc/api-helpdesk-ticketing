@@ -1,5 +1,6 @@
 package br.dev.pauloroberto.support_ticket.security.service;
 
+import br.dev.pauloroberto.support_ticket.domain.model.user.User;
 import br.dev.pauloroberto.support_ticket.domain.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +17,17 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userService.findByUsername(username)
+        User user = (User) userService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                user.getAuthorities()
+        );
     }
 }
