@@ -17,8 +17,11 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private String description;
+    @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime closedAt;
@@ -27,12 +30,16 @@ public class Ticket {
     private Long deletedBy;
     private boolean deleted = false;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TicketCategory category;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TicketStatus status = TicketStatus.OPEN;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TicketPriority priority = TicketPriority.NORMAL;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @OneToMany(mappedBy = "ticket", fetch = FetchType.EAGER)
     private List<Answer> answers = new ArrayList<>();
